@@ -29,7 +29,7 @@ export default {
   // },
   methods: {
     cerca(){
-      this.$emit('performSerch',this.search)
+      this.$emit('performSearch',this.search)
       this.search = ''
     }
     // leggi(){

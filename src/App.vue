@@ -1,7 +1,8 @@
 <template>
   <div id="app">
     <HeaderComponent @performSearch="search" />
-    <MainComponent :items="films" :loader=loading />
+    <MainComponent  :items="films" title="Film" :loader="loading" />
+    <MainComponent title="Serie tv" :items="series" :loader="loadingSeries" />
   </div>
 </template>
 
@@ -20,20 +21,34 @@ export default {
   data() {
     return {
       films: [],
+      series: [],
       apiKey: "e99307154c6dfb0b4750f6603256716d",
       myApi: "https://api.themoviedb.org/3/search/",
       ///movie?api_key=e99307154c6dfb0b4750f6603256716d&query=ritorno+al+futuro
       loading: false,
+      loadingSeries: false,
     };
   },
   methods: {
     getMovies(queryParams) {
       axios
-        .get(this.myApi + "movie",queryParams)
+        .get(this.myApi + "movie", queryParams)
         .then((res) => {
           console.log("ogg", res.data.results);
           this.films = res.data.results;
-          this.loading= false
+          this.loading = false;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    getSeries(queryParams) {
+      axios
+        .get(this.myApi + "tv", queryParams)
+        .then((res) => {
+          console.log("ogg", res.data.results);
+          this.series = res.data.results;
+          this.loadingSeries = false;
         })
         .catch((error) => {
           console.log(error);
@@ -48,8 +63,10 @@ export default {
           query: text,
         },
       };
-this.loading= true
+      this.loading = true;
+      this.loadingSeries = true;
       this.getMovies(queryParams);
+      this.getSeries(queryParams);
     },
   },
   mounted() {},
