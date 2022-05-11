@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <HeaderComponent />
-    <MainComponent />
+    <HeaderComponent @performSearch="search" />
+    <MainComponent :items="films" :loader=loading />
   </div>
 </template>
 
@@ -12,44 +12,59 @@ import axios from "axios";
 
 export default {
   name: "App",
-  props:{
-
-  },
+  // props:{},
   components: {
     HeaderComponent,
     MainComponent,
   },
   data() {
     return {
-      filmCards: {},
-      myApi: 'https://api.themoviedb.org/3/search/movie?api_key=e99307154c6dfb0b4750f6603256716d&query=ritorno+al+futuro'
+      films: [],
+      apiKey: "e99307154c6dfb0b4750f6603256716d",
+      myApi: "https://api.themoviedb.org/3/search/",
+      ///movie?api_key=e99307154c6dfb0b4750f6603256716d&query=ritorno+al+futuro
+      loading: false,
     };
   },
-  mounted() {
-    axios
-      .get(this.myApi)
-      .then((res) => { 
-        console.log("ogg", res);
-        this.filmCards = res.data.results;
-      }) .catch((error) => {
-        console.log(error);
-      });
+  methods: {
+    getMovies(queryParams) {
+      axios
+        .get(this.myApi + "movie",queryParams)
+        .then((res) => {
+          console.log("ogg", res.data.results);
+          this.films = res.data.results;
+          this.loading= false
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
 
-      console.log("film",this.filmCards)
+    search(text) {
+      console.log(text);
+      const queryParams = {
+        params: {
+          api_key: this.apiKey,
+          query: text,
+        },
+      };
+this.loading= true
+      this.getMovies(queryParams);
+    },
   },
-  created(){
-
-
-  }
+  mounted() {},
+  created() {},
 };
 </script>
 
-<style>
+<style lang="scss">
+@import "./style/general.scss";
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
+
 .debug {
   border: 1px solid black;
 }

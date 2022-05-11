@@ -1,8 +1,12 @@
 <template>
   <div class="container">
     <main class="debug">
-      <ul>
-        <li></li>
+       <ul>
+        <li v-for="item in items" :key="item.id">
+          id: {{ item.id }} titolo originale:
+          {{ item.original_title }} titolo: {{ item.title }} lingua:
+          {{ item.original_language }} voto: {{ item.vote_averge }}
+        </li>
       </ul>
     </main>
   </div>
@@ -11,6 +15,18 @@
 <script>
 export default {
   name: "MainComponent",
+  props:['items', 'loader'],
+data(){
+  return{}
+},
+computed:{
+  // mySearch(){
+  //   return state.serch
+  // }
+
+
+},
+methods:{}
 };
 </script>
 
