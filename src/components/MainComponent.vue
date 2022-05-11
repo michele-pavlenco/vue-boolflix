@@ -12,27 +12,35 @@
             <br />
           </div>
           <div class="card-text">
-            id:
-            {{ item.id }} <br />
-            titolo originale:
-            {{ item.original_title ? item.original_title : item.original_name }}
-            <br />
-            titolo:
-            {{ item.title ? item.title : item.name }} <br />
-            lingua:
-            <div class="flag" v-if="item.original_language === 'en'">
-              {{ item.original_language }}
-              <img :src="require('../assets/img/en.jpg')" alt="" />
-            </div>
-            <div class="flag" v-else-if="item.original_language === 'it'">
-              {{ item.original_language }}
-              <img :src="require('../assets/img/ita.jpg')" alt="" />
-            </div>
-            <div v-else>{{ item.original_language }}</div>
-            <br />
+            <span> id: {{ item.id }} <br /></span>
 
-            voto:
-            {{ item.vote_average }}
+            <span>
+              titolo originale:
+              {{
+                item.original_title ? item.original_title : item.original_name
+              }}
+              <br
+            /></span>
+
+            <span
+              >titolo: {{ item.title ? item.title : item.name }} <br
+            /></span>
+
+            <span>
+              lingua:
+              <div class="flag" v-if="item.original_language === 'en'">
+                {{ item.original_language }}
+                <img :src="require('../assets/img/en.jpg')" alt="" />
+              </div>
+              <div class="flag" v-else-if="item.original_language === 'it'">
+                {{ item.original_language }}
+                <img :src="require('../assets/img/ita.jpg')" alt="" />
+              </div>
+              <div v-else>{{ item.original_language }}</div>
+              <br />
+            </span>
+
+            <span> voto: {{ item.vote_average }} </span>
           </div>
         </li>
       </ul>
@@ -48,53 +56,48 @@ export default {
     return {};
   },
   computed: {
-    // mySearch(){
-    //   return state.serch
-    // }
   },
   methods: {},
 };
 </script>
 
 <style scoped lang="scss">
- main {
-   width: 100%;
-//   height: calc(100vh - 80px);
- }
+main {
+  width: 100%;
+  //   height: calc(50vh - 80px);
+}
 ul {
   display: flex;
   overflow-x: auto;
 }
-  ul li {
-    list-style-type: none;
-    width: 300px;
-    height: 300px;
-    position: relative;
-  
-  }
-.card-img{
-  background-size: contain;
-  
+ul li {
+  list-style-type: none;
+  width: 300px;
+  height: 284px;
+  position: relative;
 }
-.card-text{
+.card-img {
+  background-size: contain;
+}
+.card-text {
   position: absolute;
   top: 0px;
-  color: wheat;
+  color: white;
   visibility: hidden;
   background-color: black;
   height: 100%;
   width: 100%;
-
+  transition: opacity 0.2s, visibility 0.2s;
 }
-li:hover .card-text{
+.card-text span {
+  margin-top: 50px;
+}
+li:hover .card-text {
   visibility: visible;
-  cursor: pointer;
-
 }
 
 ul .flag img {
   width: 13px;
   height: 10px;
 }
-
 </style>
