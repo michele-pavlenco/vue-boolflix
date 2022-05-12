@@ -5,7 +5,9 @@
         <h1>Boolflix</h1>
       </div>
       <div class="serch-bar">
-        <input @keyup.enter="$emit('performSearch',search)" v-model="search" type="text" />
+        <!-- <input @keyup.enter="$emit('performSearch',search)" v-model="search" type="text" /> -->
+
+         <input type="text" class="search-click" name="" placeholder="Cerca qui..."  @keyup.enter="$emit('performSearch',search)" v-model="search" />
         <button @click="cerca" >Cerca</button>
 
       </div>
@@ -20,21 +22,18 @@ export default {
   data() {
     return {
       search: ""
-      //state
+
     };
   },
   // computed:{
-  //    mySearch(){
-  //   return state.serch
+  //   
   // },
   methods: {
     cerca(){
       this.$emit('performSearch',this.search)
       this.search = ''
     }
-    // leggi(){
-    //   state.serch= 'pippo'
-    // }
+   
   },
 };
 </script>
@@ -54,4 +53,42 @@ export default {
 button {
   height: 30px;
 } 
+.search-click {
+  border: 1px solid #ccc;
+  margin-right: 10px;
+  background-size: 22px;
+  background-position: 13px;
+  border-radius: 50px;
+  width: 50px;
+  height: 50px;
+  padding: 25px;
+  transition: all 0.5s;
+}
+.search-click:focus {
+  width: 200px;
+  padding-left: 25px;
+   background-image: url(../assets/img/lens.svg); 
+  background-position: left;
+}
+.search-click {
+  position: relative;
+  overflow: hidden;
+  height: 50px;
+}
+.search-click input {
+  background: transparent;
+  border: 1px solid #ccc;
+  outline: none;
+  position: absolute;
+  width: 200px;
+  height: 50px;
+  left: 2%;
+  padding: 10px;
+}
+.search-click{
+ background-image: url(../assets/img/lens.svg); 
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+}
 </style>

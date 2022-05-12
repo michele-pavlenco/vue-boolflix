@@ -2,6 +2,7 @@
   <div class="container">
     <main class="debug">
       <h2>{{ title }}</h2>
+
       <ul>
         <li class="debug" v-for="item in items" :key="item.id">
           <div class="card-img">
@@ -11,6 +12,7 @@
             />
             <br />
           </div>
+
           <div class="card-text">
             <span> id: {{ item.id }} <br /></span>
 
@@ -39,8 +41,12 @@
               <div v-else>{{ item.original_language }}</div>
               <br />
             </span>
-
-            <span> voto: {{ item.vote_average }} </span>
+              <div> voto:
+            <!-- <span> voto: {{ item.vote_average }} </span> -->
+            <span v-for="(n,index) in 5" :key="index">
+              <i :class="n <= reduceVotes ? 'fa-solid fa-star empty-star  ' : 'fa-solid fa-star yellow-star '"></i>
+                </span>
+            </div>
           </div>
         </li>
       </ul>
@@ -56,6 +62,9 @@ export default {
     return {};
   },
   computed: {
+    reduceVotes(){
+       return parseInt(this.items.vote_average / 2)
+    }
   },
   methods: {},
 };
@@ -64,38 +73,58 @@ export default {
 <style scoped lang="scss">
 main {
   width: 100%;
-  //   height: calc(50vh - 80px);
+  // height: calc(50vh - 80px);
 }
 ul {
   display: flex;
   overflow-x: auto;
+  overflow-y: hidden;
+  height: 280px;
 }
 ul li {
   list-style-type: none;
-  width: 300px;
-  height: 284px;
   position: relative;
+
+  color: white;
+  cursor: pointer;
+  transition: 1s ease-in-out;
+  transform-style: preserve-3d;
 }
 .card-img {
+  background-size: contain;
+
+  backface-visibility: hidden;
+  transition: 1s ease-in-out;
+  -webkit-box-reflect: below 0
+    linear-gradient(transparent, transparent, rgba(0, 0, 0, 0.4));
+}
+.card-img img {
+  height: 100%;
   background-size: contain;
 }
 .card-text {
   position: absolute;
   top: 0px;
-  color: white;
+  color: black;
   visibility: hidden;
-  background-color: black;
   height: 100%;
   width: 100%;
-  transition: opacity 0.2s, visibility 0.2s;
 }
 .card-text span {
   margin-top: 50px;
 }
+li:hover {
+  transform: rotateY(0.5turn);
+}
 li:hover .card-text {
+transform: rotateY(0.5turn);
+  transition-delay: 0.5s;
   visibility: visible;
 }
-
+.yellow-star {
+  color:yellow;
+}
+.empty-star {color: red;}
 ul .flag img {
   width: 13px;
   height: 10px;
