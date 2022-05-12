@@ -2,11 +2,9 @@
   <div class="container">
     <header class="debug">
       <div class="title">
-        <h1>Boolflix</h1>
+        <h1><a href="./">Boolflix</a> </h1>
       </div>
       <div class="serch-bar">
-        <!-- <input @keyup.enter="$emit('performSearch',search)" v-model="search" type="text" /> -->
-
          <input type="text" class="search-click" name="" placeholder="Cerca qui..."  @keyup.enter="$emit('performSearch',search)" v-model="search" />
         <button @click="cerca" >Cerca</button>
 
@@ -45,16 +43,25 @@ export default {
   align-items: center;
   justify-content: space-between;
 }
-.title {
+button{
+  border-radius: 20px;
+  padding: 5px;
+  background-color: black;
+  color: red;
+  border: 1px solid red;
+  cursor: pointer;
+  }
+.title a {
   color: red;
   text-transform: uppercase;
+  text-decoration: none;
 }
 .serch-bar input,
 button {
   height: 30px;
 } 
 .search-click {
-  border: 1px solid #ccc;
+  border: 1px solid rgb(255, 0, 0);
   margin-right: 10px;
   background-size: 22px;
   background-position: 13px;
@@ -69,15 +76,16 @@ button {
   padding-left: 25px;
    background-image: url(../assets/img/lens.svg); 
   background-position: left;
+    border: none ;
 }
 .search-click {
   position: relative;
   overflow: hidden;
   height: 50px;
+    border: 3px solid rgb(255, 0, 0);
 }
 .search-click input {
   background: transparent;
-  border: 1px solid #ccc;
   outline: none;
   position: absolute;
   width: 200px;

@@ -2,6 +2,7 @@
   <div id="app">
     <HeaderComponent @performSearch="search" />
     <MainComponent  :items="films" title="Film" :loader="loading" />
+    
     <MainComponent title="Serie tv" :items="series" :loader="loadingSeries" />
   </div>
 </template>
@@ -13,7 +14,7 @@ import axios from "axios";
 
 export default {
   name: "App",
-  // props:{},
+
   components: {
     HeaderComponent,
     MainComponent,
@@ -24,6 +25,8 @@ export default {
       series: [],
       apiKey: "e99307154c6dfb0b4750f6603256716d",
       myApi: "https://api.themoviedb.org/3/search/",
+      langIt:"&language=it-IT",
+
       ///movie?api_key=e99307154c6dfb0b4750f6603256716d&query=ritorno+al+futuro
       loading: false,
       loadingSeries: false,
@@ -34,7 +37,7 @@ export default {
       axios
         .get(this.myApi + "movie", queryParams)
         .then((res) => {
-          console.log("ogg", res.data.results);
+          //console.log("ogg", res.data.results);
           this.films = res.data.results;
           this.loading = false;
         })
@@ -46,7 +49,7 @@ export default {
       axios
         .get(this.myApi + "tv", queryParams)
         .then((res) => {
-          console.log("ogg", res.data.results);
+          //console.log("ogg", res.data.results);
           this.series = res.data.results;
           this.loadingSeries = false;
         })
@@ -60,6 +63,7 @@ export default {
       const queryParams = {
         params: {
           api_key: this.apiKey,
+          langIt: this.langIt,
           query: text,
         },
       };
@@ -81,10 +85,12 @@ export default {
   padding: 0;
   box-sizing: border-box;
 }
-
-.debug {
-  border: 1px solid black;
+#app{
+  background-color: black;
+  height: 100vh ;
+  font-family: Arial, Helvetica, sans-serif;
 }
+
 .container {
   width: 90%;
   margin: 0 auto;
