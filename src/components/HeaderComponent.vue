@@ -2,12 +2,21 @@
   <div class="container">
     <header class="debug">
       <div class="title">
-        <h1><a href="./">Boolflix</a> </h1>
+        <h1><a href="./">Boolflix</a></h1>
+        <div class="film" @click="$emit('hidden-series')">Film</div>
+        <div class="serie" @click="$emit('hidden-films')">Serie TV</div>
       </div>
-      <div class="serch-bar">
-         <input type="text" class="search-click" name="" placeholder="Cerca qui..."  @keyup.enter="$emit('performSearch',search)" v-model="search" />
-        <button @click="cerca" >Cerca</button>
 
+      <div class="serch-bar">
+        <input
+          type="text"
+          class="search-click"
+          name=""
+          placeholder="Cerca qui..."
+          @keyup.enter="$emit('performSearch', search)"
+          v-model="search"
+        />
+        <button @click="cerca">Cerca</button>
       </div>
     </header>
   </div>
@@ -19,47 +28,58 @@ export default {
   name: "HeaderComponent",
   data() {
     return {
-      search: ""
-
+      search: "",
     };
   },
-  // computed:{
-  //   
-  // },
   methods: {
-    cerca(){
-      this.$emit('performSearch',this.search)
-      this.search = ''
-    }
-   
+    // hiddenClass(){
+    //   this.isNotActive = !this.isNotActive;
+    // },
+    cerca() {
+      this.$emit("performSearch", this.search);
+      this.search = "";
+    },
   },
 };
 </script>
 <style>
- header {
+header {
   height: 80px;
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
-button{
+button {
   border-radius: 20px;
   padding: 5px;
   background-color: black;
   color: red;
   border: 1px solid red;
   cursor: pointer;
-  }
+}
+.title {
+  display: flex;
+}
 .title a {
   color: red;
   text-transform: uppercase;
   text-decoration: none;
+  margin-right: 10px;
+}
+.title div {
+  color: red;
+  padding: 10px;
+  cursor: pointer;
+  border-right: 1px solid red;
+}
+.title div:hover {
+  color: wheat;
 }
 .serch-bar input,
 button {
   height: 30px;
-} 
+}
 .search-click {
   border: 1px solid rgb(255, 0, 0);
   margin-right: 10px;
@@ -74,15 +94,15 @@ button {
 .search-click:focus {
   width: 200px;
   padding-left: 25px;
-   background-image: url(../assets/img/lens.svg); 
+  background-image: url(../assets/img/lens.svg);
   background-position: left;
-    border: none ;
+  border: none;
 }
 .search-click {
   position: relative;
   overflow: hidden;
   height: 50px;
-    border: 3px solid rgb(255, 0, 0);
+  border: 3px solid rgb(255, 0, 0);
 }
 .search-click input {
   background: transparent;
@@ -93,8 +113,8 @@ button {
   left: 2%;
   padding: 10px;
 }
-.search-click{
- background-image: url(../assets/img/lens.svg); 
+.search-click {
+  background-image: url(../assets/img/lens.svg);
   background-position: center;
   background-repeat: no-repeat;
   position: relative;

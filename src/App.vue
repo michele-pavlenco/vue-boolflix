@@ -1,10 +1,26 @@
 <template>
   <div id="app">
-    <HeaderComponent @performSearch="search" />
-    <LoadingComponent  v-if="loading"  />
-    <MainComponent  :items="films" title="Film" :loader="loading" />
-    
-    <MainComponent title="Serie tv" :items="series" :loader="loadingSeries" />
+    <HeaderComponent
+      @performSearch="search"
+      @hidden-films="hiddenClassFilm"
+      @hidden-series="hiddenClassSeries"
+    />
+    <LoadingComponent v-if="loading" />
+
+    <MainComponent
+      :items="films"
+      title="Film"
+      :loader="loading"
+      :class="{ disBlockFilm: isNotActivefilm }"
+    />
+
+    <MainComponent
+      title="Serie tv"
+      :items="series"
+      :loader="loadingSeries"
+      :class="{ disBlockSeries: isNotActiveseries }"
+    />
+    <!--  -->
   </div>
 </template>
 
@@ -28,7 +44,8 @@ export default {
       series: [],
       apiKey: "e99307154c6dfb0b4750f6603256716d",
       myApi: "https://api.themoviedb.org/3/search/",
-      langIt:"&language=it-IT",
+      isNotActivefilm: false,
+      isNotActiveseries: false,
 
       ///movie?api_key=e99307154c6dfb0b4750f6603256716d&query=ritorno+al+futuro
       loading: false,
@@ -36,11 +53,20 @@ export default {
     };
   },
   methods: {
+    hiddenClassFilm() {
+      this.isNotActivefilm = true;
+      console.log("active");
+      this.isNotActiveseries = false;
+    },
+    hiddenClassSeries() {
+      this.isNotActiveseries = true;
+      (this.isNotActivefilm = false), console.log("active");
+    },
     getMovies(queryParams) {
       axios
         .get(this.myApi + "movie", queryParams)
         .then((res) => {
-          //console.log("ogg", res.data.results);
+          console.log("ogg", res.data.results);
           this.films = res.data.results;
           this.loading = false;
         })
@@ -62,12 +88,11 @@ export default {
     },
 
     search(text) {
-     this.loadingSeries = true;
+      this.loadingSeries = true;
       console.log(text);
       const queryParams = {
         params: {
           api_key: this.apiKey,
-          langIt: this.langIt,
           query: text,
         },
       };
@@ -89,9 +114,15 @@ export default {
   padding: 0;
   box-sizing: border-box;
 }
-#app{
+.disBlockSeries {
+  display: none;
+}
+.disBlockFilm {
+  display: none;
+}
+#app {
   background-color: black;
-  height: 100vh ;
+  height: 100vh;
   font-family: Arial, Helvetica, sans-serif;
 }
 
