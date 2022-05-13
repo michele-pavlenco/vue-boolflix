@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <HeaderComponent @performSearch="search" />
+    <LoadingComponent  v-if="loading"  />
     <MainComponent  :items="films" title="Film" :loader="loading" />
     
     <MainComponent title="Serie tv" :items="series" :loader="loadingSeries" />
@@ -10,6 +11,7 @@
 <script>
 import HeaderComponent from "./components/HeaderComponent.vue";
 import MainComponent from "./components/MainComponent.vue";
+import LoadingComponent from "./components/LoadingComponent.vue";
 import axios from "axios";
 
 export default {
@@ -18,6 +20,7 @@ export default {
   components: {
     HeaderComponent,
     MainComponent,
+    LoadingComponent,
   },
   data() {
     return {
@@ -59,6 +62,7 @@ export default {
     },
 
     search(text) {
+     this.loadingSeries = true;
       console.log(text);
       const queryParams = {
         params: {
